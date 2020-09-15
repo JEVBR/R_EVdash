@@ -11,7 +11,8 @@ function DashboardApp() {
       console.log('WebSocket Client Connected');
     };
     client.onmessage = (message) => {
-      console.log(message);
+      console.log(message.data);
+      if (message.data >= 100) {console.clear();}
     };
   },[]);
 

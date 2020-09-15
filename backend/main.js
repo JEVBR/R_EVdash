@@ -20,8 +20,7 @@ const wsServer = new webSocketServer({
   httpServer: server
 });
 
-// I'm maintaining all active connections in this object
-const clients = {};
+const clients = [];
 
 // This code generates unique userid for everyuser.
 const getUniqueID = () => {
@@ -34,7 +33,23 @@ wsServer.on('request', function(request) {
   console.log((new Date()) + ' Recieved a new connection from origin ' + request.origin + '.');
   // You can rewrite this part of the code to accept only the requests from allowed origin
   const connection = request.accept(null, request.origin);
-  clients[userID] = connection;
+
+  clients.push(connection);
   console.log('connected: ' + userID + ' in ' + Object.getOwnPropertyNames(clients))
 });
 // https://www.youtube.com/watch?v=QBXWZPy1Zfs
+
+function watchDog() {
+  clients.forEach(function(connection){
+    connection.send(bark());
+  });  
+  setTimeout(watchDog, 100);
+}
+watchDog();
+
+let woofCounter = 0
+function bark(){
+  woofCounter +=1;
+  if (woofCounter > 100){woofCounter = 0}
+  return woofCounter
+}
