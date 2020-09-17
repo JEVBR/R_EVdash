@@ -31,7 +31,29 @@ $ sudo adduser "user" dialout
 
 # Start the server
 
-$ node test.js
+When dev:
+
+$ cd backend
+$ yarn start
+
+open another terminal
+
+$ cd frontend
+$ yarn start
+
+In browser goto localhost/3001
+
+In "prod":
+
+$ cd frontend
+$ yarn build
+$ cd ..
+$ cd backend
+$ yarn start
+
+In browser goto localhost/3000
+
+
 
 in case of an error: cannot open /dev/ttyACM0 or similar, check the serial port and its settings. The port settings are found in the file "local-settings.json"
 
@@ -51,11 +73,7 @@ for my PI3 :
 
 This file is not included in the git-repo, since it is different depending on which device is used to connect to the serial port. So... make the file by hand.
 
-# Start the browser
-
-go to http://localhost:3000
-
-# Pi3 Startup
+# Pi3 Startup - maybe?
 
 To change the USB permissions at startup of the PI3 ad the following line to the SUDO CRONTAB by:
 

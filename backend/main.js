@@ -20,7 +20,7 @@ const wsServer = new webSocketServer({
   httpServer: server
 });
 
-const clients ;
+const clients = [];
 
 // This code generates unique userid for everyuser.
 const getUniqueID = () => {
@@ -60,6 +60,7 @@ const router = express.Router();
 
 const settings = require('./local-settings.json');
 
+
 const port = new SerialPort(settings.port, {
   baudRate: 115200,
   bufferSize: 1,
@@ -67,6 +68,7 @@ const port = new SerialPort(settings.port, {
 });
 
 var str = '';
+var laststr= '';
 port.on('data', (data) => {
   str += data;
   if (str.includes('!')) {

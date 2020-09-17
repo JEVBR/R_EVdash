@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ClipLoader from "react-spinners/ClipLoader";
 import Arrow from '@elsdoerfer/react-arrow';
 
-export default function DashBoard ()  {
-  const [data, setData] = useState([]) 
+export default function DashBoard ({data})  {
+  // const [data, setData] = useState([]) 
   const [loading, setLoading] = useState(true)
   useEffect(() => { 
     console.log('---------------------------- DATA -----------------------------------')
