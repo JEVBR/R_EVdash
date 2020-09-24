@@ -45,7 +45,7 @@ function watchDog() {
   });  
   setTimeout(watchDog, 100);
 }
-watchDog();
+// watchDog();
 
 let woofCounter = 0
 function bark(){
@@ -68,15 +68,42 @@ const port = new SerialPort(settings.port, {
 });
 
 var str = '';
-var laststr= '';
 port.on('data', (data) => {
   str += data;
-  if (str.includes('!')) {
+  if (data.includes('!')) {
     port.flush();
+    str = cleanUpSerial(str)
     clients.forEach(function(connection){
       connection.send(str);
     });  
     str = '';
   }
 });
+
+function cleanUpSerial(inStr){
+  inStr = inStr.replace(/\s+/g, '')
+  inStr = inStr.replace('#T,', '')
+  inStr = inStr.replace(',!', '') 
+  let array = inStr.split(',');
+  result = JSON.stringify({
+    "id": array[0],
+    "iq": array[1],
+    "idref": array[2],
+    "iqref": array[3],
+    "ia": array[4],
+    "ib": array[5],
+    "ic": array[6],
+    "pctV": array[7],
+    "Rthr": array[8],
+    "thr": array[9],
+    "slipRPM": array[10],
+    "elecRPM": array[11],
+    "mechRPM": array[12],
+    "POSCNT": array[13]
+  })
+
+  // let result = JSON.stringify(array);
+   return result
+  // return array
+}
 
