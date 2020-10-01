@@ -43,15 +43,31 @@ function watchDog() {
   clients.forEach(function(connection){
     connection.send(bark());
   });  
-  setTimeout(watchDog, 100);
+  setTimeout(watchDog, 1000);
 }
-// watchDog();
+watchDog();
 
 let woofCounter = 0
 function bark(){
   woofCounter +=1;
   if (woofCounter > 100){woofCounter = 0}
-  return woofCounter
+  result = JSON.stringify({
+    "id": woofCounter,
+    "iq": woofCounter,
+    "idref": woofCounter,
+    "iqref": woofCounter,
+    "ia": woofCounter,
+    "ib": woofCounter,
+    "ic": woofCounter,
+    "pctV": woofCounter,
+    "Rthr": woofCounter,
+    "thr": woofCounter,
+    "slipRPM": woofCounter,
+    "elecRPM": woofCounter,
+    "mechRPM": woofCounter,
+    "POSCNT": woofCounter
+  })
+  return result
 }
 
 const SerialPort = require('serialport');
